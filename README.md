@@ -205,8 +205,13 @@ synthetic.** The frozen fixture is [data/synthetic/acme_scenario.json](data/synt
 **The system investigates and recommends; it does not execute trades.** There is no trading or
 recommendation-execution endpoint.
 
+## Learn the architecture
+
+For a step-by-step tutorial explaining how the risk event, multi-agent reasoning, trust boundaries, structured verification, deterministic governance, and Google Cloud deployment work from first principles, see the [Interactive Tutorial](docs/tutorial/README.md).
+
 ## Documentation
 
+- [Interactive Tutorial](docs/tutorial/README.md)
 - [Architecture and authority boundaries](docs/architecture.md)
 - [Frozen demo scenario](docs/demo_scenario.md)
 - [Governance policy](docs/governance_policy.md)
