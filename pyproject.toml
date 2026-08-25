@@ -1,0 +1,53 @@
+[project]
+name = "institutional-risk-agent-fleet"
+version = "0.1.0"
+description = "Governed, deterministic-first institutional credit risk investigation demo"
+readme = "README.md"
+requires-python = ">=3.12"
+dependencies = [
+  "fastapi>=0.115,<1",
+  "google-adk>=2.7.1,<3",
+  "google-auth>=2.40,<3",
+  "google-cloud-firestore>=2.21,<3",
+  "google-cloud-pubsub>=2.31,<3",
+  "httpx>=0.28,<1",
+  "pydantic>=2.9,<3",
+  "streamlit>=1.62,<2",
+  "uvicorn>=0.35,<1",
+]
+
+[dependency-groups]
+dev = [
+  "pyright>=1.1.390",
+  "pytest>=8.3",
+  "ruff>=0.8",
+]
+
+[project.scripts]
+risk-fleet-demo = "institutional_risk_fleet.demo:main"
+
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
+[tool.hatch.build.targets.wheel]
+packages = ["src/institutional_risk_fleet"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+addopts = "-q"
+
+[tool.ruff]
+target-version = "py312"
+line-length = 100
+
+[tool.ruff.lint]
+select = ["E", "F", "I", "UP", "B", "SIM", "RUF"]
+ignore = ["E501"]
+
+[tool.pyright]
+include = ["src", "tests"]
+pythonVersion = "3.12"
+typeCheckingMode = "standard"
+venvPath = "."
+venv = ".venv"

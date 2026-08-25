@@ -1,0 +1,114 @@
+{
+  "scenario_id": "scenario-acme-credit-001",
+  "version": "1.0.0",
+  "synthetic": true,
+  "disclaimer": "All issuers, documents, portfolio values, and financial data are synthetic and for demonstration only.",
+  "event": {
+    "id": "risk-event-acme-001",
+    "issuer_id": "ACME",
+    "issuer_name": "Acme Corp",
+    "portfolio_exposure_usd": 75000000.0,
+    "previous_spread_bps": 120.0,
+    "current_spread_bps": 210.0,
+    "spread_move_bps": 90.0,
+    "severity": "HIGH",
+    "occurred_at": "2026-01-15T14:30:00Z",
+    "synthetic": true
+  },
+  "financials": {
+    "period": "FY2025",
+    "debt_usd_millions": 380.0,
+    "cash_usd_millions": 45.0,
+    "ebitda_usd_millions": 100.0
+  },
+  "positions": [
+    {
+      "id": "position-acme-bond-001",
+      "issuer_name": "Acme Corp",
+      "market_value_usd": 75000000.0,
+      "spread_duration": 4.2
+    },
+    {
+      "id": "position-beta-bond-001",
+      "issuer_name": "Beta Industrial",
+      "market_value_usd": 35000000.0,
+      "spread_duration": 3.8
+    },
+    {
+      "id": "position-gamma-bond-001",
+      "issuer_name": "Gamma Manufacturing",
+      "market_value_usd": 40000000.0,
+      "spread_duration": 4.0
+    }
+  ],
+  "comparable_issuers": [
+    {"name": "Beta Industrial", "spread_bps": 145.0, "leverage": 3.1},
+    {"name": "Gamma Manufacturing", "spread_bps": 160.0, "leverage": 3.4}
+  ],
+  "historical_spreads_bps": [110.0, 115.0, 120.0, 118.0, 125.0, 130.0, 135.0, 140.0, 145.0, 150.0],
+  "evidence": [
+    {
+      "id": "evidence-upstream-001",
+      "source_type": "upstream_enrichment",
+      "title": "Acme automated alert enrichment",
+      "locator": "risk-event.enrichment.fy2025_leverage",
+      "content": "SYNTHETIC upstream enrichment reports FY2025 leverage of 4.1x.",
+      "authoritative": false,
+      "synthetic": true,
+      "facts": {
+        "fy2025_leverage": {
+          "metric": "fy2025_leverage",
+          "value": 4.1,
+          "unit": "x",
+          "period": "FY2025"
+        }
+      }
+    },
+    {
+      "id": "evidence-filing-001",
+      "source_type": "issuer_filing",
+      "title": "Acme Corp synthetic FY2025 annual filing",
+      "locator": "synthetic-filing:credit-metrics",
+      "content": "SYNTHETIC FY2025 filing: debt $380m, cash $45m, EBITDA $100m, gross leverage 3.8x.",
+      "authoritative": true,
+      "synthetic": true,
+      "facts": {
+        "fy2025_debt": {
+          "metric": "fy2025_debt",
+          "value": 380.0,
+          "unit": "USD millions",
+          "period": "FY2025"
+        },
+        "fy2025_ebitda": {
+          "metric": "fy2025_ebitda",
+          "value": 100.0,
+          "unit": "USD millions",
+          "period": "FY2025"
+        },
+        "fy2025_leverage": {
+          "metric": "fy2025_leverage",
+          "value": 3.8,
+          "unit": "x",
+          "period": "FY2025"
+        }
+      }
+    },
+    {
+      "id": "evidence-market-001",
+      "source_type": "market_snapshot",
+      "title": "Acme synthetic spread monitor",
+      "locator": "synthetic-market:2026-01-15:ACME",
+      "content": "SYNTHETIC Acme five-year spread moved from 120bp to 210bp, a widening of 90bp.",
+      "authoritative": true,
+      "synthetic": true,
+      "facts": {
+        "spread_move": {
+          "metric": "spread_move",
+          "value": 90.0,
+          "unit": "bps",
+          "period": "2026-01-15"
+        }
+      }
+    }
+  ]
+}
