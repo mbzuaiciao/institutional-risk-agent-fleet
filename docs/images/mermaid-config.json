@@ -1,0 +1,22 @@
+{
+  "theme": "base",
+  "themeVariables": {
+    "fontFamily": "Inter, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif",
+    "fontSize": "15px",
+    "primaryColor": "#e8f1ff",
+    "primaryTextColor": "#0c2340",
+    "primaryBorderColor": "#2563eb",
+    "lineColor": "#334155",
+    "secondaryColor": "#fef3c7",
+    "tertiaryColor": "#f3e8ff",
+    "clusterBkg": "#ffffff",
+    "clusterBorder": "#cbd5e1"
+  },
+  "flowchart": {
+    "curve": "basis",
+    "padding": 24,
+    "nodeSpacing": 45,
+    "rankSpacing": 45,
+    "htmlLabels": true
+  }
+}

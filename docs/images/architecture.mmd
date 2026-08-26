@@ -1,0 +1,62 @@
+flowchart TB
+    EVENT["Synthetic Risk Event<br/><i>(ACME +90bp Spread Shock)</i>"] --> PS["Pub/Sub Topic<br/><code>risk-events</code>"]
+
+    subgraph CLOUD_INGEST["GOOGLE CLOUD RUNTIME — INGESTION & TRIGGER"]
+        PS --> WORKER["Private Cloud Run Worker / API<br/><code>risk-fleet-worker</code>"]
+    end
+
+    WORKER --> EVIDENCE
+
+    subgraph CONTROL_A["1. DETERMINISTIC INPUT CONTROLS"]
+        EVIDENCE["Evidence Service<br/><i>(Filings, Market & Upstream)</i>"] --> GATE["Role-bound Permissions<br/><code>CapabilityGate</code>"]
+        GATE --> TOOLS["ToolGateway + Deterministic Arithmetic<br/><i>(3.8x Leverage, Spread P&L)</i>"]
+    end
+
+    TOOLS --> ADK
+
+    subgraph AI["2. AI REASONING — GOOGLE ADK + GEMINI 3.7 FLASH"]
+        ADK["ADK Orchestrator<br/><code>SequentialAgent</code>"]
+        CREDIT["Credit Agent<br/><i>(Filing vs Upstream Leverage)</i>"]
+        MARKET["Market Agent<br/><i>(Spread Shock & Comparables)</i>"]
+        INVESTIGATOR["Investigator Agent<br/><i>(Thesis Synthesis & Premises)</i>"]
+        CHALLENGER["Challenger Agent<br/><i>(Adversarial Inconsistency Probing)</i>"]
+
+        ADK --> CREDIT & MARKET
+        CREDIT & MARKET --> INVESTIGATOR
+        INVESTIGATOR --> CHALLENGER
+    end
+
+    CHALLENGER --> ADAPTER
+
+    subgraph CONTROL_B["3. BINDING DETERMINISTIC GOVERNANCE"]
+        ADAPTER["Validated Adapter<br/><i>(Reference & Lineage Validation)</i>"] --> VERIFIER["Structured Verifier<br/><i>(4.1x Rejected → 3.8x Verified)</i>"]
+        VERIFIER --> GOVERNANCE["Governance Engine<br/><i>(RED Risk Classification)</i>"]
+        GOVERNANCE --> AUDIT["Ordered Audit Log<br/><i>(Contiguous Monotonic Sequence)</i>"]
+    end
+
+    subgraph CLOUD_PERSIST["GOOGLE CLOUD PERSISTENCE, OBSERVABILITY & HUMAN GATE"]
+        STORE[("Cloud Firestore Native<br/><code>(default)</code>")]
+        UI["Cloud Run Streamlit UI<br/><code>risk-fleet-ui</code>"]
+        LOGS["Cloud Logging<br/><i>(Structured Audit & Trace)</i>"]
+        HUMAN["Explicit Human Gate<br/><code>AWAITING_HUMAN_REVIEW</code>"]
+
+        STORE --> UI
+        UI --> HUMAN
+    end
+
+    GOVERNANCE --> STORE
+    AUDIT --> HUMAN
+    WORKER -. structured events .-> LOGS
+    GOVERNANCE -. lifecycle + audit .-> LOGS
+
+    classDef cloud fill:#e8f1ff,stroke:#2563eb,stroke-width:2px,color:#0c2340;
+    classDef ai fill:#f3e8ff,stroke:#7e22ce,stroke-width:2px,color:#3b0764;
+    classDef control fill:#fef3c7,stroke:#d97706,stroke-width:2px,color:#451a03;
+    classDef eventNode fill:#fee2e2,stroke:#dc2626,stroke-width:2px,color:#7f1d1d;
+    classDef humanNode fill:#ecfdf5,stroke:#059669,stroke-width:3px,color:#064e3b;
+
+    class PS,WORKER,STORE,UI,LOGS cloud;
+    class ADK,CREDIT,MARKET,INVESTIGATOR,CHALLENGER ai;
+    class EVIDENCE,GATE,TOOLS,ADAPTER,VERIFIER,GOVERNANCE,AUDIT control;
+    class EVENT eventNode;
+    class HUMAN humanNode;
