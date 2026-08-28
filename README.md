@@ -21,18 +21,22 @@ Institutional Risk Agent Fleet separates generative reasoning from institutional
 - Deterministic code controls permissions, tools, validation, verification, and lifecycle.
 - A human remains the final authority when governance requires review.
 
-## What happens in the demo
+## Demo
 
-A synthetic ACME Corp credit event arrives against a **$75 million** portfolio exposure. Its spread
-widens from **120bp to 210bp**—a **+90bp** move classified as **HIGH** severity.
+📺 **Watch the video:** [Institutional Risk Agent Fleet — #AllThingsAgentic Hackathon Demo](https://youtu.be/pgUXkE9O9R0)
 
-The fleet investigates asynchronously. An upstream source reports FY2025 leverage at **4.1x**, while
-the authoritative synthetic filing and deterministic leverage tool both establish **3.8x**. The
-Verifier rejects `claim-001`, preserves it in history, and creates verified `claim-002` with
-`supersedes_claim_id="claim-001"`.
+> Let AI agents reason, investigate, and propose — but don't make them their own judges.
 
-Machine verification then passes, but the risk remains **RED** and governance returns
-**HUMAN_REVIEW_REQUIRED**. No approval is inferred from model confidence or machine clearance.
+The walkthrough follows a synthetic ACME Corp credit event against a **$75 million** portfolio exposure (spread widening from **120bp to 210bp**, a **+90bp** move classified as **HIGH** severity) through six stages:
+
+1. **Risk-event ingestion:** Asynchronous delivery via Pub/Sub to a private Cloud Run worker with transactional idempotency leases.
+2. **Gemini-powered multi-agent investigation:** Google ADK coordinates Credit and Market agents in parallel, followed by Investigator synthesis and Challenger adversarial probing with Gemini 3.7 Flash.
+3. **Evidence verification:** Deterministic `StructuredVerifier` catches a seeded upstream conflict (4.1x vs. authoritative 3.8x filing/tool), rejects `claim-001`, and verifies revised `claim-002` with explicit supersession.
+4. **Permission enforcement and audit logging:** The Credit agent's unauthorized portfolio query is rejected by `CapabilityGate` in code and recorded in a monotonically sequenced audit trail.
+5. **Governance classification:** Machine verification passes after revision, but high severity and $75m exposure trigger a **RED** risk classification and **`HUMAN_REVIEW_REQUIRED`** governance status.
+6. **Human review and final decision:** The Cloud Run Streamlit UI surfaces the investigation to a human risk officer for explicit, accountable sign-off before completion.
+
+> **Production note:** The demo narration was generated using Google Gemini Text-to-Speech (`gemini-2.5-flash-tts`, Leda voice). Gemini TTS was used strictly as a video production tool and is not part of the fleet runtime architecture, agent reasoning graph, or governance pipeline.
 
 ## Architecture
 
