@@ -23,7 +23,8 @@ Institutional Risk Agent Fleet separates generative reasoning from institutional
 
 ## Demo
 
-📺 **Watch the video:** [Institutional Risk Agent Fleet — #AllThingsAgentic Hackathon Demo](https://youtu.be/pgUXkE9O9R0)
+📺 **Watch the video:** [Institutional Risk Agent Fleet — #AllThingsAgentic Hackathon Demo](https://youtu.be/pgUXkE9O9R0)  
+📝 **Read the article:** [Building AI Agents That Aren't Their Own Judges: Lessons from Institutional Risk Agent Fleet](https://mbzuaiciao.github.io/ai-agents/agent-governance/2026/08/26/building-ai-agents-that-arent-their-own-judges.html)
 
 > Let AI agents reason, investigate, and propose — but don't make them their own judges.
 
